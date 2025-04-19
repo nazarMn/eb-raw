@@ -8,7 +8,7 @@ const jost = Jost({ subsets: ["latin"],
 
 export default function Home() {
   return (
-<body className={jost.className} сlassName="w-screen h-full bg-[#f5f5f5]">
+<body className= {`${jost.className} w-screen h-full bg-[#f5f5f5]`}>
 
 <Header />
  
