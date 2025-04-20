@@ -8,8 +8,8 @@ export default function Header() {
   };
 
   return (
-    <header className="w-full bg-white shadow-[0px_1px_1px_rgba(0,0,0,0.15)]">
-      <div className="max-w-[1400px] mx-auto px-4 md:px-10 lg:px-[135px] py-4 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0">
+    <header className="w-full h-[110px] bg-white shadow-[0px_1px_1px_rgba(0,0,0,0.15)] flex items-center justify-between">
+      <div className="w-full flex align-middle justify-between mx-auto px-4 md:px-10 lg:px-[135px] py-4 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0">
 
        
         <div className="flex-shrink-0 pr-4">
