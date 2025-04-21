@@ -7,7 +7,7 @@ export default function Home() {
 <>
 
 <Header />
-
+<div className="h-[2px] shadow-[0px_1px_1px_rgba(0,0,0,0.15)]"></div>
 <MenuBar />
 
 </>
