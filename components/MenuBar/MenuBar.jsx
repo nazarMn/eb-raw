@@ -6,7 +6,7 @@ export default function MenuBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="w-full bg-white ">
+    <header className="w-full">
       <div className="flex items-center justify-between h-[50px] px-4 sm:px-6 md:px-10 lg:px-[135px]">
 
        

@@ -7,7 +7,7 @@ export default function Header() {
   };
 
   return (
-    <header className="w-full bg-white ">
+    <header className="w-full ">
       <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0 px-4 md:px-10 lg:px-[135px] py-4 ">
         
       
