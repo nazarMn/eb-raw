@@ -2,7 +2,7 @@ import PolicyCard from "./PolicyCard";
 
 export default function ShopPolicy() {
   return (
-    <div className='w-full h-[260px] flex justify-around items-center bg-[#F3F3F3]'>
+    <div className='w-full h-[350px] flex flex-wrap justify-around items-center bg-[#F3F3F3] sm:h-[260px]'>
       <PolicyCard 
         icon="/FreeShipping.svg"
         title="Free Shipping"
