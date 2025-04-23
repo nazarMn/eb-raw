@@ -89,7 +89,7 @@ export default function ShopPolicy() {
 <div className="w-[25%] h-full flex justify-center items-center">
 <div className="w-[45px] h-[45px] bg-[#E5E5E5] rounded-full flex justify-center items-center ">
         <Image 
-        src="/FreeShipping.svg" alt="FreeShipping" width={22} height={22}>
+        src="/247Support.svg" alt="247Support" width={22} height={22}>
 
         </Image>
         </div>
