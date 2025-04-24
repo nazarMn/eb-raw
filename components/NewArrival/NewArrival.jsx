@@ -3,7 +3,7 @@ import ArrivalCard from './ArrivalCard';
 
 export default function NewArrival() {
   return (
-    <div className="w-full h-[650px] flex flex-wrap justify-evenly items-center">
+    <div className="w-full h-auto flex flex-wrap justify-center md:justify-evenly items-center gap-4 py-4 xl:h-[650px]">
       <ArrivalCard
         backgroundImage="/NewArrival-Img1.png"
         tag="Top Collection"
