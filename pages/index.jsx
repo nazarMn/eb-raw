@@ -2,6 +2,7 @@ import Header from "../components/Header/Header";
 import MenuBar from "../components/MenuBar/MenuBar";
 import Hero from "../components/Hero/Hero";
 import ShopPolicy from "../components/ShopPolicy/ShopPolicy";
+import NewArrival from "../components/NewArrival/NewArrival";
 
 
 export default function Home() {
@@ -17,6 +18,8 @@ export default function Home() {
 <Hero />
 
 <ShopPolicy />
+
+<NewArrival />
 
 </>
  
