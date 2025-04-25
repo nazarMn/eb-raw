@@ -3,6 +3,7 @@ import MenuBar from "../components/MenuBar/MenuBar";
 import Hero from "../components/Hero/Hero";
 import ShopPolicy from "../components/ShopPolicy/ShopPolicy";
 import NewArrival from "../components/NewArrival/NewArrival";
+import OurFeaturedProducts from "@/components/OurFeaturedProducts/OurFeaturedProducts";
 
 
 export default function Home() {
@@ -20,6 +21,8 @@ export default function Home() {
 <ShopPolicy />
 
 <NewArrival />
+
+<OurFeaturedProducts />
 
 </>
  
