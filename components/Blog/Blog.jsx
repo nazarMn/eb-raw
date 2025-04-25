@@ -26,16 +26,16 @@ export default function Blog() {
       
 
   return (
-    <div className="w-full h-[782px] bg-[#F3F3F3] flex flex-col">
+    <div className="w-full h-auto bg-[#F3F3F3] flex flex-col xl:w-full h-[782px] bg-[#F3F3F3] flex flex-col">
 
-        <div className="w-full h-[25%] flex justify-end items-center text-center flex-col gap-4">
+        <div className="w-full h-auto flex justify-end items-center text-center flex-col gap-6 p-4 xl:w-full h-[25%] flex justify-end items-center text-center flex-col gap-4">
 
             <h2 className="text-[30px] font-medium text-[#333333]">From the blog</h2>
-            <p className="text-[15px] font-regular text-[#333333] text-center">There are many variations of passages of Lorem Ipsum available, but the majority have suffered <br /> alteration in some form, by injected humour</p>
+            <p className="text-[14px] font-regular text-[#333333] text-center xl:text-[15px] ">There are many variations of passages of Lorem Ipsum available, but the majority have suffered <br /> alteration in some form, by injected humour</p>
 
         </div>
 
-        <div className="w-full h-[75%] flex justify-around items-center">
+        <div className="w-full h-auto flex justify-around items-center flex-wrap gap-4 p-4 xl:w-full h-[75%] flex justify-around items-center ">
   {cardsData.map((card, index) => (
   <div key={index} className="group w-[350px] h-[450px] flex flex-col bg-[#F0F0F0] overflow-hidden">
 
