@@ -7,6 +7,8 @@ import OurFeaturedProducts from "@/components/OurFeaturedProducts/OurFeaturedPro
 
 
 export default function Home() {
+
+  
   return (
 <>
 
