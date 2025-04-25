@@ -13,7 +13,7 @@ export default function Discount() {
             Super discount for your first purchase
           </h2>
 
-          <button className="w-full sm:w-[170px] h-[50px] border border-dashed border-[#023047] text-[#023047] font-medium text-[16px] text-center rounded">
+          <button className="w-full sm:w-[170px] h-[50px] border border-dashed border-[#023047] text-[#023047] font-medium text-[16px] text-center ">
             FREE10DELIVERY
           </button>
 
