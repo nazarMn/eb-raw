@@ -56,26 +56,28 @@ export default function OurFeaturedProducts() {
     </div>
 
     <div className="flex flex-col items-end justify-between gap-4">
+      <div className="flex items-center gap-2">
+        <Stack spacing={1}>
+          <Rating name="half-rating" defaultValue={2.5} precision={0.5}  readOnly sx={{
+            color: '#023047', 
+            '& .MuiRating-iconEmpty': {
+              color: '#cfd8dc', 
+            },
+          }} />
+        </Stack>
+        <p>(99+)</p>
+      </div>
 
-
-<div class="flex items-center gap-2">
-<Stack spacing={1}>
-      <Rating name="half-rating" defaultValue={2.5} precision={0.5}  readOnly sx={{
-      color: '#023047', 
-      '& .MuiRating-iconEmpty': {
-        color: '#cfd8dc', 
-      },
-    }} />
-    
-    </Stack>
-<p>(99+)</p>
-</div>
-
-        
-      <h2 className="text-black text-[18px] font-medium">$150.00</h2>
+      <div className="flex items-center gap-2">
+      
+        <h2 className="text-gray-500 text-[16px] line-through">$200.00</h2>
+      
+        <h2 className="text-black text-[18px] font-medium">$150.00</h2>
+      </div>
     </div>
   </div>
 </div>
+
 
 
 
