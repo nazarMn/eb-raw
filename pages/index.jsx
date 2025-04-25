@@ -5,6 +5,7 @@ import Hero from "../components/Hero/Hero";
 import ShopPolicy from "../components/ShopPolicy/ShopPolicy";
 import NewArrival from "../components/NewArrival/NewArrival";
 import OurFeaturedProducts from "@/components/OurFeaturedProducts/OurFeaturedProducts";
+import Discount from "@/components/Discount/Discount";
 
 const jost = Jost({
   subsets: ["latin"],
@@ -21,6 +22,7 @@ export default function Home() {
       <ShopPolicy />
       <NewArrival />
       <OurFeaturedProducts />
+      <Discount />
     </div>
   );
 }
