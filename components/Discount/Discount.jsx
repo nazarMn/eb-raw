@@ -1,6 +1,14 @@
-import React from 'react'
+import { useState } from 'react';
 
 export default function Discount() {
+
+    const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText('FREE10DELIVERY');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
   return (
     <div
       className="relative w-full h-[300px] bg-cover bg-center"
@@ -13,9 +21,14 @@ export default function Discount() {
             Super discount for your first purchase
           </h2>
 
-          <button className="w-full sm:w-[170px] h-[50px] border border-dashed border-[#023047] text-[#023047] font-medium text-[16px] text-center ">
-            FREE10DELIVERY
-          </button>
+          <button
+      onClick={handleCopy}
+      className={`w-full cursor-pointer sm:w-[170px] h-[50px] border border-dashed border-[#023047] text-[#023047] font-medium text-[16px] text-center transition-all duration-300 ease-in-out ${
+        copied ? 'bg-[#023047] text-white scale-105' : ''
+      }`}
+    >
+      {copied ? 'Сopied!' : 'FREE10DELIVERY'}
+    </button>
 
           <h2 className="text-[#333333] text-[16px] sm:text-[18px] font-medium text-center sm:text-left">
             Use discount code in checkout!
