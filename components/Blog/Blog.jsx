@@ -37,25 +37,46 @@ export default function Blog() {
 
         <div className="w-full h-[75%] flex justify-around items-center">
   {cardsData.map((card, index) => (
-    <div key={index} className="w-[350px] h-[450px] flex flex-col bg-[#F0F0F0]">
-      <div className="relative w-full h-[75%]">
-        <Image
-          src={card.image}
-          alt={card.title}
-          width={370}
-          height={700}
-          className="w-full h-full object-cover"
-        />
-        <h2 className="absolute top-0 left-0 p-2 text-white text-[15px] font-medium">
-          {card.category}
-        </h2>
-      </div>
+  <div key={index} className="group w-[350px] h-[450px] flex flex-col bg-[#F0F0F0] overflow-hidden">
 
-      <div className="w-full h-[25%] flex justify-between items-start flex-col p-3">
-        <h2 className="text-[#333333] text-[12px] font-medium">{card.date}</h2>
-        <h2 className="text-[#333333] text-[15px] font-medium">{card.title}</h2>
-      </div>
-    </div>
+  <div className="relative w-full h-[75%] group-hover:h-full transition-all duration-500">
+    <Image
+      src={card.image}
+      alt={card.title}
+      width={370}
+      height={700}
+      className="w-full h-full object-cover transition-all duration-500"
+    />
+    
+    <h2 className="absolute top-0 left-0 p-2 text-white text-[15px] font-medium z-10 group-hover:opacity-0 transition-all duration-500">
+      {card.category}
+    </h2>
+
+ 
+  <div className="absolute flex justify-center items-start flex-col top-[5%] left-[5%] w-[90%] h-[90%] bg-black opacity-0 group-hover:opacity-60 transition-all duration-500 pl-5 gap-2">
+
+  <h2 className="absolute top-0 left-0 p-2 text-white text-[15px] font-medium z-10 opacity-100">
+    {card.category}
+  </h2>
+
+  
+  <h2 className="text-white text-[12px] font-medium opacity-100 ">{card.date}</h2>
+  <h2 className="text-white text-[15px] font-medium opacity-100">{card.title}</h2>
+
+  <button className="w-[130px] h-[50px] bg-white text-[#023047] font-semibold text-[15px] cursor-pointer overflow-hidden group hover:shadow-[0px_0px_8px_2px_rgba(0,0,0,0.4)] opacity-100">View More</button>
+
+</div>
+
+  </div>
+
+  <div className="w-full h-[25%] flex justify-between items-start flex-col p-3 group-hover:opacity-0 group-hover:h-0 transition-all duration-500">
+    <h2 className="text-[#333333] text-[12px] font-medium">{card.date}</h2>
+    <h2 className="text-[#333333] text-[15px] font-medium">{card.title}</h2>
+  </div>
+
+</div>
+
+ 
   ))}
 </div>
 
