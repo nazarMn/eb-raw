@@ -8,6 +8,7 @@ import OurFeaturedProducts from "@/components/OurFeaturedProducts/OurFeaturedPro
 import Discount from "@/components/Discount/Discount";
 import Blog from "@/components/Blog/Blog";
 import Review from "@/components/Review/Review";
+import Instagram from "@/components/Instagram/Instagram";
 
 const jost = Jost({
   subsets: ["latin"],
@@ -27,6 +28,7 @@ export default function Home() {
       <Discount />
       <Blog />
       <Review />
+      <Instagram />
     </div>
   );
 }

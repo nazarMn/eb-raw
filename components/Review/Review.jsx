@@ -60,7 +60,7 @@ export default function Review() {
 
       <Swiper
         modules={[Navigation, Pagination]}
-        slidesPerView={4}
+        slidesPerView='auto'
         loop={true} 
         pagination={{ clickable: true }}
         navigation={{
