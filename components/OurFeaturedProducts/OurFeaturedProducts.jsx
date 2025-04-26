@@ -4,15 +4,14 @@ import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack'
 
 export default function OurFeaturedProducts() {
-  const [products, setProducts] = useState([]); // State to store products
+  const [products, setProducts] = useState([]);
 
-  // Fetch products from the server when the component mounts
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await fetch('http://localhost:5000/api/products');
   
-        // Check if the response is JSON
         const contentType = response.headers.get('Content-Type');
         if (!contentType || !contentType.includes('application/json')) {
           throw new Error('Expected JSON response but got something else');

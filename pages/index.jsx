@@ -9,6 +9,7 @@ import Discount from "@/components/Discount/Discount";
 import Blog from "@/components/Blog/Blog";
 import Review from "@/components/Review/Review";
 import Instagram from "@/components/Instagram/Instagram";
+import OfferNewslatter from "@/components/OfferNewslatter/OfferNewslatter";
 
 const jost = Jost({
   subsets: ["latin"],
@@ -29,6 +30,7 @@ export default function Home() {
       <Blog />
       <Review />
       <Instagram />
+      <OfferNewslatter />
     </div>
   );
 }
