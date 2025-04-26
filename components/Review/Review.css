@@ -19,3 +19,14 @@
     background-color: #023047;
     border-radius: 50%;
   }
+  #review{
+   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #BoxReview{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+  }

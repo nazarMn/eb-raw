@@ -60,8 +60,7 @@ export default function Review() {
 
       <Swiper
         modules={[Navigation, Pagination]}
-        spaceBetween={50}
-        slidesPerView={1}
+        slidesPerView={4}
         loop={true} 
         pagination={{ clickable: true }}
         navigation={{
@@ -72,11 +71,15 @@ export default function Review() {
           swiper.params.navigation.prevEl = prevRef.current;
           swiper.params.navigation.nextEl = nextRef.current;
         }}
-        className="w-full h-[70%]"
+        className="w-full h-[70%]" id='BoxReview'
       >
         {reviews.map((review) => (
-          <SwiperSlide key={review._id} className="w-full h-full flex justify-center items-center">
+          <SwiperSlide key={review._id} id='review'>
             <div className="w-[270px] h-[214px] flex flex-col justify-center items-center border-[1px] border-[#CCCCCC] gap-1 pd-5">
+             
+
+             <div className='w-full h-[15%] flex justify-center items-end'>
+
               <Stack spacing={1}>
                 <Rating
                   name="half-rating"
@@ -92,11 +95,17 @@ export default function Review() {
                   }}
                 />
               </Stack>
+              </div >
 
-              <h2 className="text-black text-[18px] font-medium text-center">
+              <div className='w-full h-[55%] flex justify-center items-center text-center'>
+
+              <h2 className="text-black text-[15px] font-regular text-center line-height-[22px]">
                 {review.comment}
               </h2>
 
+              </div>
+
+              <div className='w-full h-[30%] flex justify-center items-start'>
               <div className="w-[70%] flex justify-center items-center gap-5">
                 <Image
                   src={review.imageUrl}
@@ -105,10 +114,14 @@ export default function Review() {
                   height={70}
                   className='w-[40px] h-[40px] rounded-full'
                 />
-                <h3 className="text-black text-[18px] font-medium">{review.name}</h3>
+                <h3 className="text-black text-[14px] font-regular">{review.name}</h3>
               </div>
+              </div>
+
             </div>
           </SwiperSlide>
+
+          
         ))}
       </Swiper>
     </div>
