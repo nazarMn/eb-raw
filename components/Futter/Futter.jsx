@@ -5,7 +5,6 @@ import { faInstagram, faFacebook, faTwitter, faLinkedin } from '@fortawesome/fre
 
 export default function Futter() {
 
-
     const FutterInfo = [
         {
             id: 1,
@@ -45,40 +44,41 @@ export default function Futter() {
         },
     ]
 
-  return (
-    <div className="w-full h-[354px] bg-[#F3F3F3] flex pl-[130px] pr-[150px]">
+    return (
+        <div className="w-full bg-[#F3F3F3] flex flex-wrap px-6 md:px-[130px] py-10 md:py-0 md:h-[354px]">
 
-        <div className="w-[30%] h-full flex flex-col justify-center items-start gap-4">
-          <div className="flex-shrink-0 pr-4">
-                  <Image src="/Logo.svg" alt="Logo" width={130} height={27.36} priority />
+            <div className="w-full h-auto md:w-[30%] flex flex-col justify-center items-start gap-4 mb-8 md:mb-0">
+                <div className="flex-shrink-0">
+                    <Image src="/Logo.svg" alt="Logo" width={130} height={27} priority />
                 </div>
-                <p className="text-[#333333] text-[15px] font-regular">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
+                <p className="text-[#333333] text-[15px]">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
                 </p>
-                <div className="flex gap-4"> <FontAwesomeIcon icon={faFacebook} className="text-[#666666] text-[24px]"/>  <FontAwesomeIcon icon={faTwitter} className="text-[#666666] text-[24px]"/>  <FontAwesomeIcon icon={faInstagram} className="text-[#666666] text-[24px]"/>  <FontAwesomeIcon icon={faLinkedin} className="text-[#023047] text-[24px]"/></div>
+                <div className="flex gap-4">
+                    <FontAwesomeIcon icon={faFacebook} className="text-[#666666] text-[24px] cursor-pointer hover:text-[#023047]" />
+                    <FontAwesomeIcon icon={faTwitter} className="text-[#666666] text-[24px] cursor-pointer hover:text-[#023047]" />
+                    <FontAwesomeIcon icon={faInstagram} className="text-[#666666] text-[24px] cursor-pointer hover:text-[#023047]" />
+                    <FontAwesomeIcon icon={faLinkedin} className="text-[#023047] text-[24px] cursor-pointer hover:text-[#666666]" />
+                </div>
+                <p className="underline text-[#666666] text-[15px] cursor-pointer hover:text-[#023047]">
+                    Check our shop in Google Map
+                </p>
+            </div>
 
-                <p className="underline text-[#666666] text-[15px] font-regular">Check our shop in Google Map</p>
-        </div>
-        
-        {FutterInfo.map((card, index) => (
-
-        <div key={index} className="w-[20%] h-full flex justify-start items-start flex-col pt-22 gap-4 ">
-            <h2 className='text-[#000000] text-[18px] font-medium'>{card.title}</h2>
-            <div className="flex flex-col gap-2">
-            <p className='text-[#000000] text-[15px] font-regular'>{card.text1}</p>
-            <p className='text-[#000000] text-[15px] font-regular'>{card.text2}</p>
-            <p className='text-[#000000] text-[15px] font-regular'>{card.text3}</p>
-            <p className='text-[#000000] text-[15px] font-regular'>{card.text4}</p>
-              <p className='text-[#000000] text-[15px] font-regular'>{card.text5}</p>
+            <div className="w-full h-auto flex justify-start items-center md:w-[70%] flex flex-wrap">
+                {FutterInfo.map((card, index) => (
+                    <div key={index} className="w-1/2 sm:w-1/2 md:w-1/4 flex flex-col gap-4 mb-6 md:mb-0">
+                        <h2 className="text-[#000000] text-[18px] font-medium">{card.title}</h2>
+                        <div className="flex flex-col gap-2">
+                            <p className="text-[#000000] text-[15px]">{card.text1}</p>
+                            <p className="text-[#000000] text-[15px]">{card.text2}</p>
+                            <p className="text-[#000000] text-[15px]">{card.text3}</p>
+                            <p className="text-[#000000] text-[15px]">{card.text4}</p>
+                            <p className="text-[#000000] text-[15px]">{card.text5}</p>
+                        </div>
+                    </div>
+                ))}
             </div>
         </div>
-
-        ))}
-
-       
-
-
-        
-    </div>
-  )
+    )
 }
