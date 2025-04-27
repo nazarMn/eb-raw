@@ -28,17 +28,17 @@ export default function OurFeaturedProducts() {
   }, []);
   
   return (
-    <div className='w-full h-[1466px] bg-[#F3F3F3] flex flex-col'>
+    <div className='w-full h-auto gap-4 bg-[#F3F3F3] flex flex-col xl:h-[1466px]'>
       <div className='w-full h-[20%] flex justify-center items-center gap-4 flex-col '>
         <div className='w-full h-[60%] flex flex-col justify-end items-center gap-2 text-center'>
           <h2 className='text-[#333] text-[30px] font-bold'>Our Featured Products</h2>
-          <p className='text-[#666] text-[15px] font-regular'>
+          <p className='text-[#666] text-[14px] font-regular'>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut <br />
             labore et dolore magna aliqua. Ut enim ad minim veniam.
           </p>
         </div>
 
-        <nav className="w-full h-[40%] flex items-end justify-evenly">
+        <nav className="w-full h-[40%] flex items-end justify-evenly flex-wrap">
           {["Hoodie", "Accessories", "Mens", "Womens", "Trendy", "T-shirt"].map((item, index) => (
             <button
               key={index}
@@ -50,7 +50,7 @@ export default function OurFeaturedProducts() {
         </nav>
       </div>
 
-      <div className="w-full h-[80%] flex justify-around items-start flex-wrap p-10">
+      <div className="w-full h-[80%] flex justify-around items-start flex-wrap p-10 gap-4">
         {products.map((product) => (
           <div key={product._id} className="w-[370px] h-[461px] bg-white flex flex-col shadow-md overflow-hidden">
             <Image
@@ -89,12 +89,12 @@ export default function OurFeaturedProducts() {
                       }}
                     />
                   </Stack>
-                  {product.ratingCount > 0 && <p>({product.ratingCount}+)</p>}
+                  {product.ratingCount > 0 && <p className="hidden sm:block">({product.ratingCount}+)</p>}
                 </div>
 
                 <div className="flex items-center gap-2">
                   {product.previousPrice && (
-                    <h2 className="text-gray-500 text-[16px] line-through">${product.previousPrice}.00</h2>
+                    <h2 className="text-gray-500 text-[16px] line-through hidden sm:block">${product.previousPrice}.00</h2>
                   )}
                   <h2 className="text-black text-[18px] font-medium">${product.price}.00</h2>
                 </div>
