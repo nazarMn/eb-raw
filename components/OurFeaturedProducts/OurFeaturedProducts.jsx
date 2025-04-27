@@ -10,7 +10,7 @@ export default function OurFeaturedProducts() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('https://eb-raw-server.onrender.com/api/products');
+        const response = await fetch('http://localhost:5000/api/products');
   
         const contentType = response.headers.get('Content-Type');
         if (!contentType || !contentType.includes('application/json')) {
