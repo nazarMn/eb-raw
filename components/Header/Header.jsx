@@ -1,7 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 export default function Header() {
+
+  const[numberProduct, setNumberProduct] = useState('');
+
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/products');
+        const data = await response.json();
+        setNumberProduct( `Search in ${data.length} Products...`);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  console.log(numberProduct);
+
+
   const handleSearch = (e) => {
     e.preventDefault();
   };
@@ -22,7 +43,7 @@ export default function Header() {
         >
           <input
             type="text"
-            placeholder="Search in 20,000 Products..."
+            placeholder = {numberProduct}
             className="w-full h-full pl-4 pr-[110px] border border-[#023047] text-[#666] text-sm rounded-md outline-none"
           />
 
