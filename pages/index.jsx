@@ -1,9 +1,9 @@
 import { Jost } from "next/font/google";
-import Header from "../components/Header/Header";
-import MenuBar from "../components/MenuBar/MenuBar";
-import Hero from "../components/Hero/Hero";
-import ShopPolicy from "../components/ShopPolicy/ShopPolicy";
-import NewArrival from "../components/NewArrival/NewArrival";
+import Header from "@/components/Header/Header";
+import MenuBar from "@/components/MenuBar/MenuBar";
+import Hero from "@/components/Hero/Hero";
+import ShopPolicy from "@/components/ShopPolicy/ShopPolicy";
+import NewArrival from "@/components/NewArrival/NewArrival";
 import OurFeaturedProducts from "@/components/OurFeaturedProducts/OurFeaturedProducts";
 import Discount from "@/components/Discount/Discount";
 import Blog from "@/components/Blog/Blog";
