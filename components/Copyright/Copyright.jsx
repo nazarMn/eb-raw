@@ -2,11 +2,15 @@ import React from 'react'
 import Image from 'next/image'
 
 export default function Copyright() {
+
+  const year = new Date().getFullYear();
+
+
   return (
     <div className="w-full min-h-[80px] bg-[#ffffff] flex flex-col sm:flex-row justify-center sm:justify-between items-center gap-4 px-6 sm:px-[135px] py-4">
 
       <p className="text-[#666] text-[14px] text-center sm:text-left">
-        Copyright @2021 ebRaw. All Rights Reserved By 
+        Copyright @{year} ebRaw. All Rights Reserved By 
         <span className='text-[#333] font-medium'> Graphic Raz</span>
       </p>
 
