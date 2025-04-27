@@ -26,13 +26,13 @@ export default function Instagram() {
         ]
 
   return (
-    <div className="w-full h-[535px] flex flex-col bg-[#F3F3F3]">
+    <div className="w-full h-auto flex flex-col bg-[#F3F3F3] xl:h-[535px]">
 
-        <header className="w-full h-[25%] flex justify-center items-end"><h2 className="font-semibold text-[24px] text-[#000000]">Follow us in instagram @graphic_raz</h2></header>
+        <header className="w-full h-[100px] flex justify-center items-end pt-8"><h2 className="font-semibold text-[24px] text-[#000000] text-center">Follow us in instagram @graphic_raz</h2></header>
 
 
 
-<div className="w-full h-[75%] flex justify-center items-center gap-4">
+<div className="w-full h-auto flex justify-center items-center gap-4 flex-wrap pt-16 pb-16">
 
 {InstImg.map((card, index) => (
 
