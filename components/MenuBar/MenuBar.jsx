@@ -25,20 +25,40 @@ export default function MenuBar() {
           </h2>
         </div>
 
-       
         <nav className="hidden lg:flex items-center space-x-4 xl:space-x-6">
-          {[
-            "Home", "Shop", "Categories", "Man", "Woman",
-            "Accessories", "Blog", "Page", "Elements"
-          ].map((item, index) => (
-            <h2
-              key={index}
-              className="text-[15px] text-[#333] hover:text-black cursor-pointer transition-colors"
-            >
-              {item}
-            </h2>
-          ))}
-        </nav>
+  {[
+    "Home", "Shop", "Categories", "Man", "Woman",
+    "Accessories", "Blog", "Page", "Elements"
+  ].map((item, index) => (
+    <h2
+      key={index}
+      className="text-[15px] text-[#333] hover:text-black cursor-pointer transition-colors"
+    >
+      <a
+        href={`#${item.toLowerCase()}`}
+        onClick={(e) => {
+          e.preventDefault();
+
+          const target = document.getElementById(item.toLowerCase());
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+            });
+
+            setTimeout(() => {
+              window.history.replaceState(null, "", window.location.pathname);
+            }, 500); 
+          }
+        }}
+        className="text-[15px]"
+      >
+        {item}
+      </a>
+    </h2>
+  ))}
+</nav>
+
+
 
       
         <div className="hidden pl-4 md:block">

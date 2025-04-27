@@ -26,7 +26,7 @@ export default function Blog() {
       
 
   return (
-    <div className="w-full h-auto bg-[#F3F3F3] flex flex-col xl:w-full h-[782px] bg-[#F3F3F3] flex flex-col">
+    <div className="w-full h-auto bg-[#F3F3F3] flex flex-col xl:w-full h-[782px] bg-[#F3F3F3] flex flex-col" id='blog'>
 
         <div className="w-full h-auto flex justify-end items-center text-center flex-col gap-6 p-4 xl:w-full h-[25%] flex justify-end items-center text-center flex-col gap-4">
 

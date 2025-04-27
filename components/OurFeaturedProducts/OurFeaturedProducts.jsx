@@ -28,7 +28,7 @@ export default function OurFeaturedProducts() {
   }, []);
   
   return (
-    <div className='w-full h-auto gap-4 bg-[#F3F3F3] flex flex-col xl:h-[1466px]'>
+    <div className='w-full h-auto gap-4 bg-[#F3F3F3] flex flex-col xl:h-[1466px]' id='shop'>
       <div className='w-full h-[20%] flex justify-center items-center gap-4 flex-col '>
         <div className='w-full h-[60%] flex flex-col justify-end items-center gap-2 text-center'>
           <h2 className='text-[#333] text-[30px] font-bold'>Our Featured Products</h2>
