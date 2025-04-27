@@ -31,28 +31,32 @@ export default function Review() {
   }, []);
 
   return (
-    <div className='w-full h-[627px] flex flex-col justify-center items-center bg-[#FFFFFF]'>
-      <header className="w-full h-[30%] flex justify-end items-center flex-col gap-10">
-        <h2 className='text-[#000000] font-semibold text-[30px]'>What Say Our Regular Customer</h2>
+    <div className='w-full h-[627px] flex flex-col justify-center items-center bg-white px-4 sm:px-8 py-8'>
+      <header className="w-full flex flex-col justify-center items-center gap-6 mb-8 text-center">
+        <h2 className='text-black font-semibold text-2xl sm:text-3xl'>
+          What Say Our Regular Customer
+        </h2>
 
-        <div className="w-full flex justify-evenly items-center">
-          <div className='w-[25%]'></div>
+        <div className="w-full flex flex-col sm:flex-row items-center justify-center gap-6">
+          <div className="hidden sm:block sm:w-1/4"></div>
 
-          <div className="w-[50%] text-center">
-            <p className='text-[#000000] font-regular text-[15px]'>
-              There are many variations of passages of Lorem Ipsum available, but the majority have suffered <br /> alteration in some form, by injected humour
+          <div className="w-full sm:w-2/4 text-center">
+            <p className='text-black text-sm sm:text-base'>
+              There are many variations of passages of Lorem Ipsum available, but the majority have suffered 
+              <br className="hidden sm:block" /> 
+              alteration in some form, by injected humour
             </p>
           </div>
 
-          <div className="w-[25%] flex gap-[10px] justify-center">
-            <div ref={prevRef} className="relative w-[40px] h-[40px] flex items-center justify-center bg-white border-[1px] border-[#023047] cursor-pointer overflow-hidden group">
-              <FontAwesomeIcon icon={faChevronLeft} size="xl" color="#023047" className="relative z-10 transition-all duration-300 ease-out group-hover:text-white"/>
-              <span className="absolute top-0 left-0 w-full h-full bg-[#023047] scale-0 group-hover:scale-150 transition-all duration-300 ease-out group-hover:opacity-100 opacity-0"></span>
+          <div className="flex gap-4 justify-center sm:w-1/4 mt-4 sm:mt-0">
+            <div ref={prevRef} className="relative w-10 h-10 flex items-center justify-center bg-white border border-[#023047] cursor-pointer overflow-hidden group ">
+              <FontAwesomeIcon icon={faChevronLeft} size="sm" color="#023047" className="relative z-10 transition-all duration-300 group-hover:text-white"/>
+              <span className="absolute inset-0 bg-[#023047] scale-0 group-hover:scale-150 transition-all duration-300 opacity-0 group-hover:opacity-100 rounded-full"></span>
             </div>
 
-            <div ref={nextRef} className="relative w-[40px] h-[40px] flex items-center justify-center bg-white border-[1px] border-[#023047] cursor-pointer overflow-hidden group">
-              <FontAwesomeIcon icon={faChevronRight} size="xl" color="#023047" className="relative z-10 transition-all duration-300 ease-out group-hover:text-white"/>
-              <span className="absolute top-0 left-0 w-full h-full bg-[#023047] scale-0 group-hover:scale-150 transition-all duration-300 ease-out group-hover:opacity-100 opacity-0"></span>
+            <div ref={nextRef} className="relative w-10 h-10 flex items-center justify-center bg-white border border-[#023047] cursor-pointer overflow-hidden group ">
+              <FontAwesomeIcon icon={faChevronRight} size="sm" color="#023047" className="relative z-10 transition-all duration-300 group-hover:text-white"/>
+              <span className="absolute inset-0 bg-[#023047] scale-0 group-hover:scale-150 transition-all duration-300 opacity-0 group-hover:opacity-100 rounded-full"></span>
             </div>
           </div>
         </div>
@@ -61,7 +65,7 @@ export default function Review() {
       <Swiper
         modules={[Navigation, Pagination]}
         slidesPerView='auto'
-        loop={true} 
+        loop={true}
         pagination={{ clickable: true }}
         navigation={{
           prevEl: prevRef.current,
@@ -71,57 +75,52 @@ export default function Review() {
           swiper.params.navigation.prevEl = prevRef.current;
           swiper.params.navigation.nextEl = nextRef.current;
         }}
-        className="w-full h-[70%]" id='BoxReview'
+        className="w-full"
+        id='BoxReview'
       >
         {reviews.map((review) => (
-          <SwiperSlide key={review._id} id='review'>
-            <div className="w-[270px] h-[214px] flex flex-col justify-center items-center border-[1px] border-[#CCCCCC] gap-1 pd-5">
-             
-
-             <div className='w-full h-[15%] flex justify-center items-end'>
-
-              <Stack spacing={1}>
-                <Rating
-                  name="half-rating"
-                  value={review.rating}
-                  precision={0.5}
-                  readOnly
-                  sx={{
-                    color: '#023047',
-                    fontSize: '15px',
-                    '& .MuiRating-iconEmpty': {
-                      color: '#cfd8dc',
-                    },
-                  }}
-                />
-              </Stack>
-              </div >
-
-              <div className='w-full h-[55%] flex justify-center items-center text-center'>
-
-              <h2 className="text-black text-[15px] font-regular text-center line-height-[22px]">
-                {review.comment}
-              </h2>
-
+          <SwiperSlide key={review._id} id='review' className="flex justify-center py-8">
+            <div className="w-[270px] min-h-[220px] flex flex-col justify-center items-center border border-gray-300 gap-3 p-4 shadow-md">
+              
+              <div className='w-full flex justify-center items-center'>
+                <Stack spacing={1}>
+                  <Rating
+                    name="half-rating"
+                    value={review.rating}
+                    precision={0.5}
+                    readOnly
+                    sx={{
+                      color: '#023047',
+                      fontSize: '18px',
+                      '& .MuiRating-iconEmpty': {
+                        color: '#cfd8dc',
+                      },
+                    }}
+                  />
+                </Stack>
               </div>
 
-              <div className='w-full h-[30%] flex justify-center items-start'>
-              <div className="w-[70%] flex justify-center items-center gap-5">
-                <Image
-                  src={review.imageUrl}
-                  alt={review.name}
-                  width={70}
-                  height={70}
-                  className='w-[40px] h-[40px] rounded-full'
-                />
-                <h3 className="text-black text-[14px] font-regular">{review.name}</h3>
+              <div className='w-full flex justify-center items-center text-center'>
+                <h2 className="text-black text-sm leading-6">
+                  {review.comment}
+                </h2>
               </div>
+
+              <div className='w-full flex justify-center items-center mt-4'>
+                <div className="flex items-center gap-4">
+                  <Image
+                    src={review.imageUrl}
+                    alt={review.name}
+                    width={40}
+                    height={40}
+                    className="rounded-full object-cover w-[40px] h-[40px]"
+                  />
+                  <h3 className="text-black text-sm">{review.name}</h3>
+                </div>
               </div>
 
             </div>
           </SwiperSlide>
-
-          
         ))}
       </Swiper>
     </div>
