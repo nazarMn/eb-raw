@@ -64,7 +64,6 @@ export default function Review() {
 
       <Swiper
         modules={[Navigation, Pagination]}
-        slidesPerView='auto'
         loop={true}
         pagination={{ clickable: true }}
         navigation={{
@@ -74,6 +73,24 @@ export default function Review() {
         onBeforeInit={(swiper) => {
           swiper.params.navigation.prevEl = prevRef.current;
           swiper.params.navigation.nextEl = nextRef.current;
+        }}
+        breakpoints={{
+          320: {
+            slidesPerView: 1,
+            spaceBetween: 20,
+          },
+          640: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          1024: {
+            slidesPerView: 3,
+            spaceBetween: 30,
+          },
+          1280: {
+            slidesPerView: 4,
+            spaceBetween: 30,
+          },
         }}
         className="w-full"
         id='BoxReview'
