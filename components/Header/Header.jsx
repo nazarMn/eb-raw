@@ -63,17 +63,24 @@ export default function Header() {
 
   
         <div className="flex items-center gap-5 pl-1 sm:pl-4 mt-2 md:mt-0">
-          {["Catalog", "Love", "Profile"].map((icon, i) => (
-            <Image
-              key={i}
-              src={`/${icon}.svg`}
-              alt={icon}
-              width={26}
-              height={25}
-              className="cursor-pointer"
-              priority
-            />
-          ))}
+        {["Catalog", "Love", "Profile"].map((icon, i) => (
+  <div key={i} className="relative">
+    <Image
+      src={`/${icon}.svg`}
+      alt={icon}
+      width={26}
+      height={25}
+      className="cursor-pointer"
+      priority
+    />
+    {icon === "Catalog" && (
+      <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center сursor-pointer">
+        3
+      </span>
+    )}
+  </div>
+))}
+
         </div>
       </div>
     </header>
