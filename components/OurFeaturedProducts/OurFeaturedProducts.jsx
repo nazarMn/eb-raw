@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export default function OurFeaturedProducts() {
   const [products, setProducts] = useState([]);
@@ -18,11 +21,18 @@ export default function OurFeaturedProducts() {
     };
   
     const updatedCart = [...existingCart, productData];
-  
     localStorage.setItem('cart', JSON.stringify(updatedCart));
-  
-    // Тригер оновлення Header — викликає подію
     window.dispatchEvent(new Event("cartUpdated"));
+  
+    toast.success('🛒 Товар додано до кошика!', {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
   
 
@@ -49,6 +59,9 @@ export default function OurFeaturedProducts() {
   
   return (
     <div className='w-full h-auto gap-4 bg-[#F3F3F3] flex flex-col xl:h-[1466px]' id='shop'>
+
+<ToastContainer />
+
       <div className='w-full h-[20%] flex justify-center items-center gap-4 flex-col '>
         <div className='w-full h-[60%] flex flex-col justify-end items-center gap-2 text-center'>
           <h2 className='text-[#333] text-[30px] font-bold'>Our Featured Products</h2>
