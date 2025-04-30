@@ -6,6 +6,26 @@ import Stack from '@mui/material/Stack'
 export default function OurFeaturedProducts() {
   const [products, setProducts] = useState([]);
 
+  const handleAddToCart = (product) => {
+    const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
+  
+    const productData = {
+      id: product._id,
+      name: product.name,
+      imageUrl: product.imageUrl,
+      price: product.price,
+      rating: product.rating
+    };
+  
+    const updatedCart = [...existingCart, productData];
+  
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+  
+    // Тригер оновлення Header — викликає подію
+    window.dispatchEvent(new Event("cartUpdated"));
+  };
+  
+
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -64,12 +84,16 @@ export default function OurFeaturedProducts() {
             <div className="w-full h-[25%] flex justify-between items-start p-3">
               <div className="w-[65%] h-full flex flex-col justify-between">
                 <h2 className="text-black text-[18px] font-medium">{product.name}</h2>
-                <button className="relative w-[130px] sm:w-[130px] h-[40px] sm:h-[50px] bg-white text-[#023047] border border-[#023047] font-semibold text-[14px] sm:text-[16px] cursor-pointer overflow-hidden group hover:shadow-[0px_0px_8px_2px_rgba(0,0,0,0.4)]">
-          <span className="relative z-10 transition-all duration-300 ease-out group-hover:text-[#fff]">
-          Add to cart
-          </span>
-          <span className="absolute top-0 left-0 w-full h-full bg-[#023047] scale-0 group-hover:scale-150 transition-all duration-300 ease-out group-hover:opacity-100 opacity-0" />
-        </button>
+                <button
+  onClick={() => handleAddToCart(product)}
+  className="relative w-[130px] sm:w-[130px] h-[40px] sm:h-[50px] bg-white text-[#023047] border border-[#023047] font-semibold text-[14px] sm:text-[16px] cursor-pointer overflow-hidden group hover:shadow-[0px_0px_8px_2px_rgba(0,0,0,0.4)]"
+>
+  <span className="relative z-10 transition-all duration-300 ease-out group-hover:text-[#fff]">
+    Add to cart
+  </span>
+  <span className="absolute top-0 left-0 w-full h-full bg-[#023047] scale-0 group-hover:scale-150 transition-all duration-300 ease-out group-hover:opacity-100 opacity-0" />
+</button>
+
               </div>
 
               <div className="w-[35%] flex flex-col items-end justify-between gap-5">

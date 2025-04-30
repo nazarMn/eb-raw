@@ -4,6 +4,26 @@ import Image from 'next/image';
 export default function Header() {
 
   const[numberProduct, setNumberProduct] = useState('');
+  const [cartCount, setCartCount] = useState(0);
+
+
+
+  useEffect(() => {
+    const updateCartCount = () => {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      setCartCount(cart.length);
+    };
+  
+    updateCartCount();
+  
+    window.addEventListener('cartUpdated', updateCartCount);
+  
+    return () => {
+      window.removeEventListener('cartUpdated', updateCartCount);
+    };
+  }, []);
+  
+
 
 
 
@@ -73,11 +93,13 @@ export default function Header() {
       className="cursor-pointer"
       priority
     />
-    {icon === "Catalog" && (
-      <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center сursor-pointer">
-        3
-      </span>
-    )}
+{icon === "Catalog" && cartCount > 0 && (
+  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center cursor-pointer">
+    {cartCount}
+  </span>
+)}
+
+
   </div>
 ))}
 
