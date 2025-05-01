@@ -12,6 +12,7 @@ import Instagram from "@/components/Instagram/Instagram";
 import OfferNewslatter from "@/components/OfferNewslatter/OfferNewslatter";
 import Futter from "@/components/Futter/Futter";
 import Copyright from "@/components/Copyright/Copyright";
+import CartModal from "@/components/Modal/CartModal/CartModal";
 
 const jost = Jost({
   subsets: ["latin"],
@@ -35,6 +36,8 @@ export default function Home() {
       <OfferNewslatter />
       <Futter />
       <Copyright />
+
+      <CartModal />
     </div>
   );
 }
