@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
-Modal.setAppElement('body');
-
 export default function CartModal({ isOpen, onRequestClose }) {
-  const items = [1, 2, 3, 4]; 
+  useEffect(() => {
+    Modal.setAppElement('body');
+  }, []);
+
+  const items = [1, 2, 3]; 
 
   return (
     <Modal
-      isOpen={true}
+      isOpen={isOpen}
       onRequestClose={onRequestClose}
       className="bg-white rounded-lg w-full max-w-2xl mx-auto mt-20 p-4 sm:p-6 shadow-xl outline-none"
       overlayClassName="fixed inset-0 bg-opacity-10 flex justify-center items-start z-50 px-2 shadow-xl"
@@ -75,7 +77,7 @@ export default function CartModal({ isOpen, onRequestClose }) {
   
       <div className="mt-6 flex flex-col sm:flex-row justify-between items-center gap-4 border-t pt-4">
         <p className="text-lg font-bold text-gray-900">Total: $1996</p>
-        <button className="bg-black text-white w-full sm:w-auto px-6 py-2 rounded-lg hover:bg-gray-900 transition">
+        <button className="bg-black text-white w-full sm:w-auto px-6 py-2 rounded-lg hover:bg-gray-900 transition cursor-pointer hover:rotate-6">
           Checkout
         </button>
       </div>

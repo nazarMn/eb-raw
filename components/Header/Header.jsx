@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import CartModal from '@/components/Modal/CartModal/CartModal';
 
 export default function Header() {
 
   const[numberProduct, setNumberProduct] = useState('');
   const [cartCount, setCartCount] = useState(0);
+  
+
+  const [isCartModalOpen, setIsCartModalOpen] = useState(false);
+
+  const openCartModal = () => setIsCartModalOpen(true);
+  const closeCartModal = () => setIsCartModalOpen(false);
 
 
 
@@ -83,27 +90,26 @@ export default function Header() {
 
   
         <div className="flex items-center gap-5 pl-1 sm:pl-4 mt-2 md:mt-0">
-        {["Catalog", "Love", "Profile"].map((icon, i) => (
-  <div key={i} className="relative">
-    <Image
-      src={`/${icon}.svg`}
-      alt={icon}
-      width={26}
-      height={25}
-      className="cursor-pointer"
-      priority
-    />
-{icon === "Catalog" && cartCount > 0 && (
-  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center cursor-pointer">
-    {cartCount}
-  </span>
-)}
-
-
-  </div>
-))}
-
+      {["Catalog", "Love", "Profile"].map((icon, i) => (
+        <div key={i} className="relative">
+          <Image
+            src={`/${icon}.svg`}
+            alt={icon}
+            width={26}
+            height={25}
+            className="cursor-pointer"
+            priority
+            onClick={icon === "Catalog" ? openCartModal : undefined}
+          />
+          {icon === "Catalog" && cartCount > 0 && (
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center cursor-pointer">
+              {cartCount}
+            </span>
+          )}
         </div>
+      ))}
+      <CartModal isOpen={isCartModalOpen} onRequestClose={closeCartModal} />
+    </div>
       </div>
     </header>
   );
