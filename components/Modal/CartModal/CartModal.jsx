@@ -3,14 +3,12 @@ import Modal from 'react-modal';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import { toast } from 'react-toastify'; // Якщо ви використовуєте toast для сповіщень
 
 export default function CartModal({ isOpen, onRequestClose }) {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     Modal.setAppElement('body');
-    // Отримуємо дані з localStorage при завантаженні компоненту
     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
     setProducts(storedCart);
   }, [isOpen]);
@@ -20,6 +18,24 @@ export default function CartModal({ isOpen, onRequestClose }) {
     setProducts(updatedCart);
     localStorage.setItem('cart', JSON.stringify(updatedCart));
     window.dispatchEvent(new Event("cartUpdated"));
+  };
+
+  const handleQuantityChange = (productId, action) => {
+    const updatedCart = products.map(product => {
+      if (product.id === productId) {
+        const newQuantity = action === 'increase' ? product.quantity + 1 : product.quantity - 1;
+        return { ...product, quantity: Math.max(newQuantity, 1) };
+      }
+      return product;
+    });
+
+    setProducts(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+    window.dispatchEvent(new Event("cartUpdated"));
+  };
+
+  const getValidPrice = (price) => {
+    return isNaN(price) || price === undefined || price === null ? 0 : parseFloat(price);
   };
 
   return (
@@ -67,13 +83,24 @@ export default function CartModal({ isOpen, onRequestClose }) {
 
               <div className="flex items-center gap-2 ml-auto">
                 <div className="flex items-center gap-2">
-                  <button className="px-2 py-1 text-sm bg-gray-200 rounded cursor-pointer hover:bg-gray-300 hover:-rotate-12 transition duration-300 ease-in-out">−</button>
+                  <button
+                    className="px-2 py-1 text-sm bg-gray-200 rounded cursor-pointer hover:bg-gray-300 hover:-rotate-12 transition duration-300 ease-in-out"
+                    onClick={() => handleQuantityChange(product.id, 'decrease')}
+                  >
+                    −
+                  </button>
 
-                  <span className="text-sm">1</span>
-                  <button className="px-2 py-1 text-sm bg-gray-200 rounded cursor-pointer hover:bg-gray-300 hover:rotate-12 transition duration-300 ease-in-out">+</button>
+                  <span className="text-sm">{product.quantity}</span>
+
+                  <button
+                    className="px-2 py-1 text-sm bg-gray-200 rounded cursor-pointer hover:bg-gray-300 hover:rotate-12 transition duration-300 ease-in-out"
+                    onClick={() => handleQuantityChange(product.id, 'increase')}
+                  >
+                    +
+                  </button>
                 </div>
 
-                <p className="text-sm font-semibold text-gray-800 whitespace-nowrap ml-2">${product.price}</p>
+                <p className="text-sm font-semibold text-gray-800 whitespace-nowrap ml-2">${(getValidPrice(product.price) * product.quantity).toFixed(2)}</p>
               </div>
             </div>
           ))
@@ -84,7 +111,7 @@ export default function CartModal({ isOpen, onRequestClose }) {
 
       <div className="mt-6 flex flex-col sm:flex-row justify-between items-center gap-4 border-t pt-4">
         <p className="text-lg font-bold text-gray-900">
-          Total: ${products.reduce((total, product) => total + product.price, 0)}
+          Total: ${(products.reduce((total, product) => total + getValidPrice(product.price) * product.quantity, 0)).toFixed(2)}
         </p>
         <button className="bg-black text-white w-full sm:w-auto px-6 py-2 rounded-lg hover:bg-gray-900 transition cursor-pointer hover:rotate-6">
           Checkout

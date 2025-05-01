@@ -12,16 +12,28 @@ export default function OurFeaturedProducts() {
   const handleAddToCart = (product) => {
     const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
   
-    const productData = {
-      id: product._id,
-      name: product.name,
-      imageUrl: product.imageUrl,
-      price: product.price,
-      rating: product.rating
-    };
+    const existingProductIndex = existingCart.findIndex(item => item.id === product._id);
+    
+    if (existingProductIndex >= 0) {
+      const updatedCart = existingCart.map((item, index) =>
+        index === existingProductIndex
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      );
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
+    } else {
+      const productData = {
+        id: product._id,
+        name: product.name,
+        imageUrl: product.imageUrl,
+        price: product.price,
+        rating: product.rating,
+        quantity: 1 
+      };
+      const updatedCart = [...existingCart, productData];
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
+    }
   
-    const updatedCart = [...existingCart, productData];
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
     window.dispatchEvent(new Event("cartUpdated"));
   
     toast.success('🛒 Товар додано до кошика!', {
@@ -34,6 +46,7 @@ export default function OurFeaturedProducts() {
       progress: undefined,
     });
   };
+  
   
 
 
