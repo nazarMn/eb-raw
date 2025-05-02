@@ -4,6 +4,7 @@ import Header from '@/components/componentsCheckout/Header/Header';
 import Text from '@/components/componentsCheckout/Text/Text';
 import Cart from '@/components/componentsCheckout/Cart/Cart';
 import ContactDetailsForm from '@/components/componentsCheckout/ContactDetailsForm/ContactDetailsForm';
+import ContactDeliveryForm from '@/components/componentsCheckout/ContactDeliveryForm/ContactDeliveryForm';
 
 
 const jost = Jost({
@@ -19,6 +20,7 @@ const jost = Jost({
           
           <div className="flex w-full justify-between іtems-end mt-8 pl-18 pr-18">
             <ContactDetailsForm />
+            <ContactDeliveryForm />
             <Cart />
           </div>
         </div>
