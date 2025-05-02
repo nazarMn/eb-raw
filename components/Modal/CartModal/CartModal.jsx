@@ -113,9 +113,11 @@ export default function CartModal({ isOpen, onRequestClose }) {
         <p className="text-lg font-bold text-gray-900">
           Total: ${(products.reduce((total, product) => total + getValidPrice(product.price) * product.quantity, 0)).toFixed(2)}
         </p>
+        <a href="Checkout">
         <button className="bg-black text-white w-full sm:w-auto px-6 py-2 rounded-lg hover:bg-gray-900 transition cursor-pointer hover:rotate-6">
           Checkout
         </button>
+        </a>
       </div>
     </Modal>
   );
