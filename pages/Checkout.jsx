@@ -3,6 +3,7 @@ import { Jost } from "next/font/google";
 import Header from '@/components/componentsCheckout/Header/Header';
 import Text from '@/components/componentsCheckout/Text/Text';
 import Cart from '@/components/componentsCheckout/Cart/Cart';
+import ContactDetailsForm from '@/components/componentsCheckout/ContactDetailsForm/ContactDetailsForm';
 
 
 const jost = Jost({
@@ -16,7 +17,8 @@ const jost = Jost({
           <Header />
           <Text />
           
-          <div className="flex w-full justify-end іtems-end mt-8 pl-18 pr-18">
+          <div className="flex w-full justify-between іtems-end mt-8 pl-18 pr-18">
+            <ContactDetailsForm />
             <Cart />
           </div>
         </div>
