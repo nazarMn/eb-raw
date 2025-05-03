@@ -5,6 +5,8 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 export default function Cart() {
   const [products, setProducts] = useState([]);
+  const [promoCode, setPromoCode] = useState('');
+  const [isPromoApplied, setIsPromoApplied] = useState(false);
 
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -46,18 +48,29 @@ export default function Cart() {
     return isNaN(price) || price === undefined || price === null ? 0 : parseFloat(price);
   };
 
-  const totalPrice = products.reduce(
+  const subtotal = products.reduce(
     (total, product) => total + getValidPrice(product.price) * product.quantity, 0
-  ).toFixed(2);
+  );
+
+  const discount = isPromoApplied ? subtotal * 0.1 : 0;
+  const totalPrice = (subtotal - discount).toFixed(2);
+
+  const applyPromo = () => {
+    if (promoCode === 'FREE10DELIVERY' && !isPromoApplied) {
+      setIsPromoApplied(true);
+    }
+  };
 
   return (
-    <div className=" bg-white rounded-2xl w-full max-w-md p-4 sm:p-6 shadow-lg border border-gray-200">
-    <div className="flex justify-between items-center mb-6">
-      <h2 className="text-xl font-bold text-gray-800">Shopping Bag</h2>
-    </div>
+    <div className="bg-white rounded-2xl w-full max-w-md p-4 sm:p-6 shadow-lg border border-gray-200">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-xl font-bold text-gray-800">Shopping Bag</h2>
+      </div>
 
-
-      <div className="space-y-4">
+      {/* Контейнер для товарів з умовним скролом */}
+      <div
+        className={`space-y-4 ${products.length > 2 ? 'max-h-40 overflow-y-auto pr-1' : ''}`}
+      >
         {products.length > 0 ? (
           products.map((product, index) => (
             <div
@@ -115,29 +128,48 @@ export default function Cart() {
       </div>
 
       {products.length > 0 && (
-  <div className="flex flex-col gap-4 mt-6 border-t pt-4">
-    <div className="flex gap-2">
-      <input
-        type="text"
-        placeholder="Promo code"
-        className="flex-1 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
-      />
-      <button className="px-4 py-2 bg-indigo-600 text-white rounded-md cursor-pointer hover:bg-indigo-700 transition">
-        Apply
-      </button>
-    </div>
+        <div className="flex flex-col gap-4 mt-6 border-t pt-4">
+          <div className="flex gap-2">
+            <input
+              type="text"
+              placeholder="Promo code"
+              value={promoCode}
+              onChange={(e) => setPromoCode(e.target.value)}
+              disabled={isPromoApplied}
+              className="flex-1 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+            />
+            <button
+              onClick={applyPromo}
+              disabled={isPromoApplied}
+              className={`px-4 py-2 ${
+                isPromoApplied ? 'bg-gray-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'
+              } text-white rounded-md transition`}
+            >
+              {isPromoApplied ? 'Applied' : 'Apply'}
+            </button>
+          </div>
 
-    <div className="flex justify-between items-center">
-      <p className="text-lg font-semibold text-gray-800">Total: ${totalPrice}</p>
-    </div>
+          <div className="flex justify-between text-sm text-gray-600">
+            <span>Subtotal:</span>
+            <span>${subtotal.toFixed(2)}</span>
+          </div>
+          {isPromoApplied && (
+            <div className="flex justify-between text-sm text-green-600">
+              <span>Promo discount:</span>
+              <span>- ${discount.toFixed(2)}</span>
+            </div>
+          )}
 
-    <button className="w-full px-4 py-3 bg-green-600 text-white rounded-md cursor-pointer hover:bg-green-700 font-semibold transition">
-    Make an order
-    </button>
-  </div>
-)}
+          <div className="flex justify-between items-center text-lg font-semibold text-gray-800">
+            <p>Total:</p>
+            <p>${totalPrice}</p>
+          </div>
 
-
+          <button className="w-full px-4 py-3 bg-green-600 text-white rounded-md cursor-pointer hover:bg-green-700 font-semibold transition">
+            Make an order
+          </button>
+        </div>
+      )}
     </div>
   );
 }
