@@ -5,6 +5,7 @@ import Text from '@/components/componentsCheckout/Text/Text';
 import Cart from '@/components/componentsCheckout/Cart/Cart';
 import ContactDetailsForm from '@/components/componentsCheckout/ContactDetailsForm/ContactDetailsForm';
 import ContactDeliveryForm from '@/components/componentsCheckout/ContactDeliveryForm/ContactDeliveryForm';
+import PaymentModal from '@/components/Modal/PaymentModal/PaymentModal';
 
 
 const jost = Jost({
@@ -24,6 +25,8 @@ const jost = Jost({
             <Cart />
           </div>
         </div>
+
+        <PaymentModal />
       </div>
     );
   }
