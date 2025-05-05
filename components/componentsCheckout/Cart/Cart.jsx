@@ -67,7 +67,6 @@ export default function Cart() {
         <h2 className="text-xl font-bold text-gray-800">Shopping Bag</h2>
       </div>
 
-      {/* Контейнер для товарів з умовним скролом */}
       <div
         className={`space-y-4 ${products.length > 2 ? 'max-h-40 overflow-y-auto pr-1' : ''}`}
       >
