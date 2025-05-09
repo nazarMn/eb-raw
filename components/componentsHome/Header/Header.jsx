@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import CartModal from '@/components/Modal/CartModal/CartModal';
 
+
 export default function Header() {
   const [numberProduct, setNumberProduct] = useState('');
   const [cartCount, setCartCount] = useState(0);
@@ -85,6 +86,36 @@ export default function Header() {
     fetchData();
   }, []);
 
+  const handleAddToCart = (product) => {
+    const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
+  
+    const existingProductIndex = existingCart.findIndex(item => item.id === product._id);
+    
+    if (existingProductIndex >= 0) {
+      const updatedCart = existingCart.map((item, index) =>
+        index === existingProductIndex
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      );
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
+    } else {
+      const productData = {
+        id: product._id,
+        name: product.name,
+        imageUrl: product.imageUrl,
+        price: product.price,
+        rating: product.rating,
+        quantity: 1 
+      };
+      const updatedCart = [...existingCart, productData];
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
+    }
+  
+    window.dispatchEvent(new Event("cartUpdated"));
+  
+
+  };
+
   const handleButtonClick = (e) => {
     e.preventDefault();
     setIsDropdownOpen((prev) => !prev); 
@@ -127,16 +158,33 @@ export default function Header() {
                 products.map((product) => (
                   <div
                     key={product._id}
-                    className="flex items-center p-2 hover:bg-gray-100 cursor-pointer"
+                    className="flex items-center justify-between p-2 hover:bg-gray-100 cursor-pointer"
                   >
-                    <Image
-                      src={product.imageUrl}
-                      alt={product.name}
-                      width={40}
-                      height={40}
-                      className="rounded-md mr-2"
-                    />
-                    <span className="text-sm">{product.name}</span>
+                    <div className="flex items-center">
+                      <Image
+                        src={product.imageUrl}
+                        alt={product.name}
+                        width={40}
+                        height={40}
+                        className="rounded-md mr-2"
+                      />
+                      <span className="text-sm">{product.name}</span>
+                    </div>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleAddToCart(product); 
+                      }}
+                      title="Add to cart"
+                    >
+                      <Image
+                        src="/Catalog.svg" 
+                        alt="Add to cart"
+                        width={20}
+                        height={20}
+                        className="cursor-pointer"
+                      />
+                    </button>
                   </div>
                 ))
               ) : (
