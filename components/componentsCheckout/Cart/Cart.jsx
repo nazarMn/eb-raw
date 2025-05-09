@@ -8,22 +8,29 @@ export default function Cart() {
   const [products, setProducts] = useState([]);
   const [promoCode, setPromoCode] = useState('');
   const [isPromoApplied, setIsPromoApplied] = useState(false);
-  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false); // ДОДАНО
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
 
-  useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
-    setProducts(storedCart);
+useEffect(() => {
+  const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+  setProducts(storedCart);
 
-    const handleCartUpdate = () => {
-      const updatedCart = JSON.parse(localStorage.getItem('cart')) || [];
-      setProducts(updatedCart);
-    };
+  const storedPromo = JSON.parse(localStorage.getItem('promo')) || null;
+  if (storedPromo?.isApplied && storedPromo?.code === 'FREE10DELIVERY') {
+    setIsPromoApplied(true);
+    setPromoCode('FREE10DELIVERY');
+  }
 
-    window.addEventListener('cartUpdated', handleCartUpdate);
-    return () => {
-      window.removeEventListener('cartUpdated', handleCartUpdate);
-    };
-  }, []);
+  const handleCartUpdate = () => {
+    const updatedCart = JSON.parse(localStorage.getItem('cart')) || [];
+    setProducts(updatedCart);
+  };
+
+  window.addEventListener('cartUpdated', handleCartUpdate);
+  return () => {
+    window.removeEventListener('cartUpdated', handleCartUpdate);
+  };
+}, []);
+
 
   const handleRemoveFromCart = (productId) => {
     const updatedCart = products.filter(product => product.id !== productId);
@@ -57,13 +64,14 @@ export default function Cart() {
   const discount = isPromoApplied ? subtotal * 0.1 : 0;
   const totalPrice = (subtotal - discount).toFixed(2);
 
-  const applyPromo = () => {
-    if (promoCode === 'FREE10DELIVERY' && !isPromoApplied) {
-      setIsPromoApplied(true);
-    }
-  };
+const applyPromo = () => {
+  if (promoCode === 'FREE10DELIVERY' && !isPromoApplied) {
+    setIsPromoApplied(true);
+    localStorage.setItem('promo', JSON.stringify({ isApplied: true, code: promoCode }));
+  }
+};
 
-  // === Функції для модалки ===
+
   const openPaymentModal = () => setIsPaymentModalOpen(true);
   const closePaymentModal = () => setIsPaymentModalOpen(false);
 
@@ -179,7 +187,6 @@ export default function Cart() {
         </div>
       )}
 
-      {/* Модалка оплати */}
       <PaymentModal isOpen={isPaymentModalOpen} onClose={closePaymentModal} />
     </div>
   );
