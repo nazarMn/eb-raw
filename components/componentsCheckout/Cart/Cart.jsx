@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import PaymentModal from '../../../components/Modal/PaymentModal/PaymentModal';
 
 export default function Cart() {
   const [products, setProducts] = useState([]);
   const [promoCode, setPromoCode] = useState('');
   const [isPromoApplied, setIsPromoApplied] = useState(false);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false); // ДОДАНО
 
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -60,6 +62,10 @@ export default function Cart() {
       setIsPromoApplied(true);
     }
   };
+
+  // === Функції для модалки ===
+  const openPaymentModal = () => setIsPaymentModalOpen(true);
+  const closePaymentModal = () => setIsPaymentModalOpen(false);
 
   return (
     <div className="bg-white rounded-2xl w-full max-w-md p-4 sm:p-6 shadow-lg border border-gray-200">
@@ -164,11 +170,17 @@ export default function Cart() {
             <p>${totalPrice}</p>
           </div>
 
-          <button className="w-full px-4 py-3 bg-green-600 text-white rounded-md cursor-pointer hover:bg-green-700 font-semibold transition">
+          <button
+            className="w-full px-4 py-3 bg-green-600 text-white rounded-md cursor-pointer hover:bg-green-700 font-semibold transition"
+            onClick={openPaymentModal}
+          >
             Make an order
           </button>
         </div>
       )}
+
+      {/* Модалка оплати */}
+      <PaymentModal isOpen={isPaymentModalOpen} onClose={closePaymentModal} />
     </div>
   );
 }

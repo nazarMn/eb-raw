@@ -4,7 +4,7 @@ import { FaCcVisa, FaGooglePay, FaApple } from 'react-icons/fa';
 
 Modal.setAppElement('body');
 
-export default function UniversalPaymentModal({ isOpen, onClose }) {
+export default function PaymentModal({ isOpen, onClose }) {
   const [step, setStep] = useState(1);
   const [method, setMethod] = useState('');
 
@@ -20,7 +20,7 @@ export default function UniversalPaymentModal({ isOpen, onClose }) {
 
   return (
     <Modal
-      isOpen={true}
+      isOpen={isOpen}
       onRequestClose={onClose}
       className="w-full max-w-md bg-white rounded-lg shadow-xl p-6 relative animate-fadeIn border border-[#000000]"
       overlayClassName="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50"
