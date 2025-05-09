@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import CartModal from '@/components/Modal/CartModal/CartModal';
-
+import { toast } from 'react-toastify';
 
 export default function Header() {
   const [numberProduct, setNumberProduct] = useState('');
@@ -113,7 +113,15 @@ export default function Header() {
   
     window.dispatchEvent(new Event("cartUpdated"));
   
-
+    toast.success('🛒 Товар додано до кошика!', {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
 
   const handleButtonClick = (e) => {
