@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import { FaCcVisa, FaGooglePay, FaApple } from 'react-icons/fa';
 
@@ -7,6 +7,27 @@ Modal.setAppElement('body');
 export default function PaymentModal({ isOpen, onClose }) {
   const [step, setStep] = useState(1);
   const [method, setMethod] = useState('');
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+    const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    const getValidPrice = (price) => {
+      return isNaN(price) || price === undefined || price === null ? 0 : parseFloat(price);
+    };
+
+    const subtotal = storedCart.reduce(
+      (total, product) => total + getValidPrice(product.price) * product.quantity, 
+      0
+    );
+
+    const storedPromo = JSON.parse(localStorage.getItem('promo')) || null;
+    const discount = storedPromo?.isApplied ? subtotal * 0.1 : 0;
+
+    const total = (subtotal - discount).toFixed(2);
+
+    setTotalPrice(total);
+  }, []);
 
   const handleSelectMethod = (m) => {
     setMethod(m);
@@ -77,6 +98,12 @@ export default function PaymentModal({ isOpen, onClose }) {
             Payment: {method === 'card' ? 'By card' : method === 'google' ? 'Google Pay' : 'Apple Pay'}
           </h2>
 
+          <div className="text-center mb-4">
+            <p className="text-gray-600">
+              Total amount: <strong>${totalPrice}</strong>
+            </p>
+          </div>
+
           {method === 'card' && (
             <form className="space-y-4">
               <input
@@ -105,7 +132,7 @@ export default function PaymentModal({ isOpen, onClose }) {
                 type="submit"
                 className="w-full bg-indigo-600 text-white py-2 rounded-md font-medium hover:bg-indigo-700 transition cursor-pointer"
               >
-                Pay $299
+                Pay ${totalPrice}
               </button>
             </form>
           )}
