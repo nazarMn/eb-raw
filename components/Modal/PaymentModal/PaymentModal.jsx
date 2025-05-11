@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
-import { FaCcVisa, FaGooglePay, FaApple } from 'react-icons/fa';
+import { FaCcVisa, FaGooglePay, FaApple, FaMoneyBillWave } from 'react-icons/fa';
 
 Modal.setAppElement('body');
 
@@ -11,13 +11,13 @@ export default function PaymentModal({ isOpen, onClose }) {
 
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
-    
+
     const getValidPrice = (price) => {
       return isNaN(price) || price === undefined || price === null ? 0 : parseFloat(price);
     };
 
     const subtotal = storedCart.reduce(
-      (total, product) => total + getValidPrice(product.price) * product.quantity, 
+      (total, product) => total + getValidPrice(product.price) * product.quantity,
       0
     );
 
@@ -82,6 +82,14 @@ export default function PaymentModal({ isOpen, onClose }) {
               <span className="text-gray-700 font-medium">Apple Pay</span>
               <FaApple size={28} className="text-gray-800" />
             </button>
+
+            <button
+              onClick={() => handleSelectMethod('cod')}
+              className="flex items-center justify-between w-full px-4 py-3 border rounded-lg hover:bg-gray-50 transition cursor-pointer"
+            >
+              <span className="text-gray-700 font-medium">Pay upon delivery</span>
+              <FaMoneyBillWave size={28} className="text-green-600" />
+            </button>
           </div>
         </>
       )}
@@ -95,7 +103,13 @@ export default function PaymentModal({ isOpen, onClose }) {
             ← Back
           </button>
           <h2 className="text-xl font-semibold text-gray-800 text-center mb-4">
-            Payment: {method === 'card' ? 'By card' : method === 'google' ? 'Google Pay' : 'Apple Pay'}
+            Payment: {method === 'card'
+              ? 'By card'
+              : method === 'google'
+              ? 'Google Pay'
+              : method === 'apple'
+              ? 'Apple Pay'
+              : 'Upon delivery'}
           </h2>
 
           <div className="text-center mb-4">
@@ -140,12 +154,26 @@ export default function PaymentModal({ isOpen, onClose }) {
           {(method === 'google' || method === 'apple') && (
             <div className="text-center">
               <p className="text-gray-600 mb-4">
-               Click the button below to confirm via {method === 'google' ? 'Google Pay' : 'Apple Pay'}.
+                Click the button below to confirm via {method === 'google' ? 'Google Pay' : 'Apple Pay'}.
               </p>
               <button
                 className="w-full flex items-center justify-center bg-black text-white py-2 rounded-md font-medium hover:opacity-90 transition cursor-pointer"
               >
                 {method === 'google' ? <FaGooglePay size={34} className="mx-auto" /> : <FaApple size={24} className="mx-auto" />}
+              </button>
+            </div>
+          )}
+
+          {method === 'cod' && (
+            <div className="text-center">
+              <p className="text-gray-600 mb-4">
+                You chose to pay upon delivery. Please prepare <strong>${totalPrice}</strong> in cash or card when your order arrives.
+              </p>
+              <button
+                onClick={onClose}
+                className="w-full bg-green-600 text-white py-2 rounded-md font-medium hover:bg-green-700 transition cursor-pointer"
+              >
+                Confirm Order
               </button>
             </div>
           )}
