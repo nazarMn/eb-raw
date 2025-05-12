@@ -19,7 +19,7 @@ const jost = Jost({
           <Header />
           <Text />
           
-          <div className="flex w-full justify-between іtems-end mt-8 pl-18 pr-18">
+          <div className="flex w-full justify-center gap-x-2 align-center flex-wrap gap-y-8 іtems-end mt-8 pl-18 pr-18">
             <ContactDetailsForm />
             <ContactDeliveryForm />
             <Cart />
