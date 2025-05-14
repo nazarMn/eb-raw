@@ -1,4 +1,3 @@
-// Checkout.jsx
 import React, { useRef, useState } from 'react';
 import Header from '@/components/componentsCheckout/Header/Header';
 import Text from '@/components/componentsCheckout/Text/Text';
@@ -15,11 +14,15 @@ const jost = Jost({
 
 export default function Checkout() {
   const detailsFormRef = useRef();
+  const deliveryFormRef = useRef();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleMakeOrder = () => {
     const isDetailsValid = detailsFormRef.current?.validate?.();
-    if (isDetailsValid) {
+    const isDeliveryValid = deliveryFormRef.current?.validate?.();
+
+    if (isDetailsValid && isDeliveryValid) {
       setIsModalOpen(true);
     }
   };
@@ -32,7 +35,7 @@ export default function Checkout() {
 
         <div className="flex w-full justify-center gap-x-2 align-center flex-wrap gap-y-8 іtems-end mt-8 pl-18 pr-18">
           <ContactDetailsForm ref={detailsFormRef} />
-          <ContactDeliveryForm />
+          <ContactDeliveryForm ref={deliveryFormRef} />
           <Cart onMakeOrder={handleMakeOrder} />
         </div>
       </div>

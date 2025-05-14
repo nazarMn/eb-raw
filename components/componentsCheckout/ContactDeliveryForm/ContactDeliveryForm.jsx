@@ -1,13 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 
-export default function ContactDeliveryForm() {
+const ContactDeliveryForm = forwardRef((_, ref) => {
   const [city, setCity] = useState('');
   const [cityRef, setCityRef] = useState('');
   const [warehouses, setWarehouses] = useState([]);
   const [selectedWarehouse, setSelectedWarehouse] = useState('');
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [warehouseError, setWarehouseError] = useState(false);
 
   const API_KEY = '9a5d9c30b45d6183bc164505b06472ee';
+
+  useImperativeHandle(ref, () => ({
+    validate: () => {
+      const isValid = selectedWarehouse !== '';
+      setWarehouseError(!isValid);
+      return isValid;
+    },
+  }));
 
   const fetchCityRef = async (cityName) => {
     try {
@@ -18,17 +27,13 @@ export default function ContactDeliveryForm() {
           apiKey: API_KEY,
           modelName: 'Address',
           calledMethod: 'searchSettlements',
-          methodProperties: {
-            CityName: cityName,
-            Limit: 1
-          }
+          methodProperties: { CityName: cityName, Limit: 1 }
         })
       });
 
       const data = await response.json();
-      if (data.success && data.data.length > 0 && data.data[0].Addresses.length > 0) {
-        const ref = data.data[0].Addresses[0].DeliveryCity;
-        setCityRef(ref);
+      if (data.success && data.data[0]?.Addresses.length > 0) {
+        setCityRef(data.data[0].Addresses[0].DeliveryCity);
       } else {
         setCityRef('');
         setWarehouses([]);
@@ -49,16 +54,14 @@ export default function ContactDeliveryForm() {
           apiKey: API_KEY,
           modelName: 'Address',
           calledMethod: 'getWarehouses',
-          methodProperties: {
-            CityRef: ref
-          }
+          methodProperties: { CityRef: ref }
         })
       });
 
       const data = await response.json();
       if (data.success) {
         setWarehouses(data.data);
-        setDropdownOpen(true); // Показати селектор як список
+        setDropdownOpen(true);
       } else {
         setWarehouses([]);
         setDropdownOpen(false);
@@ -76,7 +79,6 @@ export default function ContactDeliveryForm() {
         fetchCityRef(city);
       }
     }, 500);
-
     return () => clearTimeout(timeout);
   }, [city]);
 
@@ -88,7 +90,8 @@ export default function ContactDeliveryForm() {
 
   const handleSelectWarehouse = (e) => {
     setSelectedWarehouse(e.target.value);
-    setDropdownOpen(false); // Закрити селектор
+    setWarehouseError(false);
+    setDropdownOpen(false);
   };
 
   return (
@@ -107,6 +110,7 @@ export default function ContactDeliveryForm() {
             onChange={(e) => {
               setCity(e.target.value);
               setSelectedWarehouse('');
+              setWarehouseError(false);
             }}
             className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
           />
@@ -119,7 +123,9 @@ export default function ContactDeliveryForm() {
             id="post-office"
             value={selectedWarehouse}
             onChange={handleSelectWarehouse}
-            className="w-full max-h-[180px] overflow-y-auto appearance-none px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition bg-white scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100"
+            className={`w-full max-h-[180px] overflow-y-auto appearance-none px-4 py-2 border ${
+              warehouseError ? 'border-red-500' : 'border-gray-300'
+            } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition bg-white scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100`}
             size={dropdownOpen ? (warehouses.length > 5 ? 5 : warehouses.length || 1) : 1}
           >
             <option value="">Select a post office</option>
@@ -129,8 +135,13 @@ export default function ContactDeliveryForm() {
               </option>
             ))}
           </select>
+          {warehouseError && (
+            <p className="text-sm text-red-500 mt-1">Please select a post office.</p>
+          )}
         </div>
       </form>
     </div>
   );
-}
+});
+
+export default ContactDeliveryForm;
