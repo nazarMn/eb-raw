@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import PaymentModal from '../../../components/Modal/PaymentModal/PaymentModal';
 
-export default function Cart() {
+export default function Cart({ onMakeOrder }) {
   const [products, setProducts] = useState([]);
   const [promoCode, setPromoCode] = useState('');
   const [isPromoApplied, setIsPromoApplied] = useState(false);
@@ -178,12 +178,13 @@ const applyPromo = () => {
             <p>${totalPrice}</p>
           </div>
 
-          <button
-            className="w-full px-4 py-3 bg-green-600 text-white rounded-md cursor-pointer hover:bg-green-700 font-semibold transition"
-            onClick={openPaymentModal}
-          >
-            Make an order
-          </button>
+         {/* інші елементи */}
+      <button
+        className="w-full px-4 py-3 bg-green-600 text-white rounded-md cursor-pointer hover:bg-green-700 font-semibold transition"
+        onClick={onMakeOrder}
+      >
+        Make an order
+      </button>
         </div>
       )}
 
