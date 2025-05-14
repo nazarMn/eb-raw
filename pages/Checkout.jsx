@@ -6,6 +6,9 @@ import ContactDetailsForm from '@/components/componentsCheckout/ContactDetailsFo
 import ContactDeliveryForm from '@/components/componentsCheckout/ContactDeliveryForm/ContactDeliveryForm';
 import PaymentModal from '@/components/Modal/PaymentModal/PaymentModal';
 import { Jost } from "next/font/google";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const jost = Jost({
   subsets: ["latin"],
@@ -18,17 +21,29 @@ export default function Checkout() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleMakeOrder = () => {
-    const isDetailsValid = detailsFormRef.current?.validate?.();
-    const isDeliveryValid = deliveryFormRef.current?.validate?.();
+ const handleMakeOrder = () => {
+  const isDetailsValid = detailsFormRef.current?.validate?.();
+  const isDeliveryValid = deliveryFormRef.current?.validate?.();
 
-    if (isDetailsValid && isDeliveryValid) {
-      setIsModalOpen(true);
-    }
-  };
+  if (!isDetailsValid || !isDeliveryValid) {
+    toast.error('Please complete all required fields', {
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    return;
+  }
+
+  setIsModalOpen(true);
+};
+
 
   return (
     <div className={jost.className + ' w-screen h-screen p-4 flex justify-center'}>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
+
       <div className="w-full h-full flex flex-col items-start">
         <Header />
         <Text />
