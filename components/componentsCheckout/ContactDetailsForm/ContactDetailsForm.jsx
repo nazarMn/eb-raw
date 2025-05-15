@@ -17,11 +17,33 @@ const ContactDetailsForm = forwardRef((_, ref) => {
     email: useRef(),
   };
 
+  const validateField = (key, value) => {
+    switch (key) {
+      case 'surname':
+      case 'name':
+        if (!value.trim()) return 'Required';
+        if (value.trim().length < 3) return 'Must be at least 3 characters';
+        return '';
+      case 'phone':
+        if (!value.trim()) return 'Required';
+        if (!/^[+\d\s\-()]+$/.test(value)) return 'Invalid phone number';
+        return '';
+      case 'email':
+        if (!value.trim()) return 'Required';
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) return 'Invalid email address';
+        return '';
+      default:
+        return '';
+    }
+  };
+
   useImperativeHandle(ref, () => ({
     validate: () => {
       const newErrors = {};
       Object.entries(fields).forEach(([key, value]) => {
-        if (!value.trim()) newErrors[key] = 'Required';
+        const error = validateField(key, value);
+        if (error) newErrors[key] = error;
       });
       setErrors(newErrors);
       return Object.keys(newErrors).length === 0;
@@ -29,14 +51,17 @@ const ContactDetailsForm = forwardRef((_, ref) => {
   }));
 
   const handleChange = (e) => {
-    setFields({ ...fields, [e.target.name]: e.target.value });
-    setErrors({ ...errors, [e.target.name]: '' });
+    const { name, value } = e.target;
+    setFields({ ...fields, [name]: value });
+
+    const error = validateField(name, value);
+    setErrors({ ...errors, [name]: error });
   };
 
   return (
     <div className="bg-white rounded-2xl w-full max-w-md p-4 sm:p-6 shadow-lg border border-gray-200">
       <h2 className="text-xl font-bold text-gray-800 mb-6">Contact Details</h2>
-      <form className="space-y-4">
+      <form className="space-y-4" onSubmit={e => e.preventDefault()}>
         {['surname', 'name', 'phone', 'email'].map((field) => (
           <div key={field}>
             <label className="block text-sm font-medium text-gray-700 mb-1 capitalize">{field}</label>
