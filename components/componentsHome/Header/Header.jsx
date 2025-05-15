@@ -113,7 +113,7 @@ export default function Header() {
   
     window.dispatchEvent(new Event("cartUpdated"));
   
-    toast.success('🛒 Товар додано до кошика!', {
+    toast.success('🛒 Product added to cart!', {
       position: "top-right",
       autoClose: 2000,
       hideProgressBar: false,
