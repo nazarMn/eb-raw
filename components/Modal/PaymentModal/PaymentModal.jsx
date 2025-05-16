@@ -39,21 +39,62 @@ export default function PaymentModal({ isOpen, onClose, detailsFormRef, delivery
     setMethod('');
   };
   
-  const handlePrintContactData = () => {
-    if (detailsFormRef.current && typeof detailsFormRef.current.getData === 'function') {
-      const data = detailsFormRef.current.getData();
-      console.log('Contact Data:', data);
-    } else {
-      console.log('detailsFormRef.current або getData() відсутні');
-    }
+const handlePrintContactData = () => {
+  let contactData = null;
+  let deliveryData = null;
+  let cartItems = [];
 
-      if (deliveryFormRef.current && typeof deliveryFormRef.current.getData === 'function') {
-      const data = deliveryFormRef.current.getData();
-      console.log('Delivery Data:', data);
+
+  if (detailsFormRef.current && typeof detailsFormRef.current.getData === 'function') {
+    contactData = detailsFormRef.current.getData();
+  } else {
+    console.log('detailsFormRef.current або getData() відсутні');
+  }
+
+
+  if (deliveryFormRef.current && typeof deliveryFormRef.current.getData === 'function') {
+    deliveryData = deliveryFormRef.current.getData();
+  } else {
+    console.log('deliveryFormRef.current або getData() відсутні');
+  }
+
+
+  try {
+    cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+    if (cartItems.length) {
+      console.log('Cart Items:');
+      cartItems.forEach((item, idx) => {
+      });
     } else {
-      console.log('deliveryFormRef.current або getData() відсутні');
+      console.log('Кошик порожній');
     }
+  } catch (error) {
+    console.log('Помилка при зчитуванні кошика з localStorage:', error);
+  }
+
+
+
+  const order = {
+    name: contactData?.name || '',
+    surname: contactData?.surname || '',
+    email: contactData?.email || '',
+    phoneNumber: contactData?.phone || '',
+    city: deliveryData?.city || '',
+    postOfficeBranch: deliveryData?.selectedWarehouse || '',
+    orderItems: cartItems.map(item => ({
+      productName: item.name,
+      quantity: item.quantity,
+    })),
+    paymentMethod: contactData?.paymentMethod || 'cash_on_delivery', 
+    isPaid: false, 
+
   };
+
+  console.log('Prepared Order for sending:', order);
+
+
+};
+
 
   
   
