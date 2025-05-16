@@ -46,7 +46,16 @@ export default function PaymentModal({ isOpen, onClose, detailsFormRef, delivery
     } else {
       console.log('detailsFormRef.current або getData() відсутні');
     }
+
+      if (deliveryFormRef.current && typeof deliveryFormRef.current.getData === 'function') {
+      const data = deliveryFormRef.current.getData();
+      console.log('Delivery Data:', data);
+    } else {
+      console.log('deliveryFormRef.current або getData() відсутні');
+    }
   };
+
+  
   
   return (
     <Modal

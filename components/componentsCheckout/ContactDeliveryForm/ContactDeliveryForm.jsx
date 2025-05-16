@@ -10,13 +10,18 @@ const ContactDeliveryForm = forwardRef((_, ref) => {
 
   const API_KEY = '9a5d9c30b45d6183bc164505b06472ee';
 
-  useImperativeHandle(ref, () => ({
-    validate: () => {
-      const isValid = selectedWarehouse !== '';
-      setWarehouseError(!isValid);
-      return isValid;
-    },
-  }));
+ useImperativeHandle(ref, () => ({
+  validate: () => {
+    const isValid = selectedWarehouse !== '';
+    setWarehouseError(!isValid);
+    return isValid;
+  },
+  getData: () => ({
+    city,
+    selectedWarehouse,
+  }),
+}));
+
 
   const fetchCityRef = async (cityName) => {
     try {
@@ -93,6 +98,9 @@ const ContactDeliveryForm = forwardRef((_, ref) => {
     setWarehouseError(false);
     setDropdownOpen(false);
   };
+
+
+  
 
   return (
     <div className="bg-white rounded-2xl w-full h-auto max-w-md p-4 sm:p-6 shadow-lg border border-gray-200">

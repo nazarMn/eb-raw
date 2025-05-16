@@ -39,12 +39,17 @@ export default function Checkout() {
   setIsModalOpen(true);
 };
 
-  const handlePrintContactData = () => {
-    if (detailsFormRef.current) {
-      const data = detailsFormRef.current.getData();
-      console.log('Contact Data:', data);
-    }
-  };
+const handlePrintContactData = () => {
+  if (detailsFormRef.current) {
+    const contactData = detailsFormRef.current.getData();
+    console.log('Contact Data:', contactData);
+  }
+
+  if (deliveryFormRef.current) {
+    const deliveryData = deliveryFormRef.current.getData();
+    console.log('Delivery Data:', deliveryData);
+  }
+};
 
   
 
