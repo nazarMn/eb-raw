@@ -39,11 +39,10 @@ export default function PaymentModal({ isOpen, onClose, detailsFormRef, delivery
     setMethod('');
   };
   
-const handlePrintContactData = () => {
+const handlePrintContactData = async () => {
   let contactData = null;
   let deliveryData = null;
   let cartItems = [];
-
 
   if (detailsFormRef.current && typeof detailsFormRef.current.getData === 'function') {
     contactData = detailsFormRef.current.getData();
@@ -51,28 +50,24 @@ const handlePrintContactData = () => {
     console.log('detailsFormRef.current або getData() відсутні');
   }
 
-
   if (deliveryFormRef.current && typeof deliveryFormRef.current.getData === 'function') {
     deliveryData = deliveryFormRef.current.getData();
   } else {
     console.log('deliveryFormRef.current або getData() відсутні');
   }
-
+  console.log('Delivery Data:', deliveryData);
+  
 
   try {
     cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-    if (cartItems.length) {
-      console.log('Cart Items:');
-      cartItems.forEach((item, idx) => {
-      });
-    } else {
+    if (!cartItems.length) {
       console.log('Кошик порожній');
+      return; 
     }
   } catch (error) {
     console.log('Помилка при зчитуванні кошика з localStorage:', error);
+    return;
   }
-
-
 
   const order = {
     name: contactData?.name || '',
@@ -81,19 +76,37 @@ const handlePrintContactData = () => {
     phoneNumber: contactData?.phone || '',
     city: deliveryData?.city || '',
     postOfficeBranch: deliveryData?.selectedWarehouse || '',
+    totalPrice: totalPrice || 0,
     orderItems: cartItems.map(item => ({
       productName: item.name,
       quantity: item.quantity,
     })),
-    paymentMethod: contactData?.paymentMethod || 'cash_on_delivery', 
-    isPaid: false, 
-
+    paymentMethod: contactData?.paymentMethod || 'cash_on_delivery',
+    isPaid: false,
   };
 
   console.log('Prepared Order for sending:', order);
 
+  try {
+    const response = await fetch('http://localhost:5000/api/orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(order)
+    });
 
+    if (!response.ok) {
+      throw new Error(`Помилка сервера: ${response.statusText}`);
+    }
+
+    const result = await response.json();
+    console.log('Order saved successfully:', result);
+  } catch (error) {
+    console.error('Error saving order:', error);
+  }
 };
+
 
 
   
