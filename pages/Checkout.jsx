@@ -39,6 +39,15 @@ export default function Checkout() {
   setIsModalOpen(true);
 };
 
+  const handlePrintContactData = () => {
+    if (detailsFormRef.current) {
+      const data = detailsFormRef.current.getData();
+      console.log('Contact Data:', data);
+    }
+  };
+
+  
+
 
   return (
     <div className={jost.className + ' w-screen h-screen p-4 flex justify-center'}>
@@ -53,9 +62,15 @@ export default function Checkout() {
           <ContactDeliveryForm ref={deliveryFormRef} />
           <Cart onMakeOrder={handleMakeOrder} />
         </div>
+         <button
+          onClick={handlePrintContactData}
+          className="mt-6 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+        >
+          Log Contact Details
+        </button>
       </div>
 
-      <PaymentModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <PaymentModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} detailsFormRef={detailsFormRef} deliveryFormRef={deliveryFormRef} />
     </div>
   );
 }

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, detailsFormRef } from 'react';
 import Modal from 'react-modal';
 import { FaCcVisa, FaGooglePay, FaApple, FaMoneyBillWave } from 'react-icons/fa';
 
 Modal.setAppElement('body');
 
-export default function PaymentModal({ isOpen, onClose }) {
+export default function PaymentModal({ isOpen, onClose, detailsFormRef, deliveryFormRef }) {
   const [step, setStep] = useState(1);
   const [method, setMethod] = useState('');
   const [totalPrice, setTotalPrice] = useState(0);
@@ -38,7 +38,16 @@ export default function PaymentModal({ isOpen, onClose }) {
     setStep(1);
     setMethod('');
   };
-
+  
+  const handlePrintContactData = () => {
+    if (detailsFormRef.current && typeof detailsFormRef.current.getData === 'function') {
+      const data = detailsFormRef.current.getData();
+      console.log('Contact Data:', data);
+    } else {
+      console.log('detailsFormRef.current або getData() відсутні');
+    }
+  };
+  
   return (
     <Modal
       isOpen={isOpen}
@@ -170,7 +179,7 @@ export default function PaymentModal({ isOpen, onClose }) {
                 You chose to pay upon delivery. Please prepare <strong>${totalPrice}</strong> in cash or card when your order arrives.
               </p>
               <button
-                onClick={onClose}
+                onClick={handlePrintContactData}
                 className="w-full bg-green-600 text-white py-2 rounded-md font-medium hover:bg-green-700 transition cursor-pointer"
               >
                 Confirm Order

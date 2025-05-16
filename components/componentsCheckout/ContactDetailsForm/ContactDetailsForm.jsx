@@ -38,6 +38,7 @@ const ContactDetailsForm = forwardRef((_, ref) => {
     }
   };
 
+  // 👇 Додаємо validate + getData
   useImperativeHandle(ref, () => ({
     validate: () => {
       const newErrors = {};
@@ -47,7 +48,8 @@ const ContactDetailsForm = forwardRef((_, ref) => {
       });
       setErrors(newErrors);
       return Object.keys(newErrors).length === 0;
-    }
+    },
+    getData: () => fields
   }));
 
   const handleChange = (e) => {
