@@ -1,6 +1,7 @@
 import React, { useState, useEffect, detailsFormRef } from 'react';
 import Modal from 'react-modal';
 import { FaCcVisa, FaGooglePay, FaApple, FaMoneyBillWave } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 
 Modal.setAppElement('body');
 
@@ -86,6 +87,16 @@ const handlePrintContactData = async () => {
   };
 
   console.log('Prepared Order for sending:', order);
+
+  toast.success('The order is feasible ',{
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+  })
 
   try {
     const response = await fetch('http://localhost:5000/api/orders', {
