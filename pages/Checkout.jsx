@@ -39,18 +39,6 @@ export default function Checkout() {
   setIsModalOpen(true);
 };
 
-const handlePrintContactData = () => {
-  if (detailsFormRef.current) {
-    const contactData = detailsFormRef.current.getData();
-    console.log('Contact Data:', contactData);
-  }
-
-  if (deliveryFormRef.current) {
-    const deliveryData = deliveryFormRef.current.getData();
-    console.log('Delivery Data:', deliveryData);
-  }
-};
-
   
 
 
@@ -67,12 +55,7 @@ const handlePrintContactData = () => {
           <ContactDeliveryForm ref={deliveryFormRef} />
           <Cart onMakeOrder={handleMakeOrder} />
         </div>
-         <button
-          onClick={handlePrintContactData}
-          className="mt-6 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
-        >
-          Log Contact Details
-        </button>
+       
       </div>
 
       <PaymentModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} detailsFormRef={detailsFormRef} deliveryFormRef={deliveryFormRef} />
