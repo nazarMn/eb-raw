@@ -138,25 +138,25 @@ const applyPromo = () => {
 
       {products.length > 0 && (
         <div className="flex flex-col gap-4 mt-6 border-t pt-4">
-          <div className="flex gap-2">
-            <input
-              type="text"
-              placeholder="Promo code"
-              value={promoCode}
-              onChange={(e) => setPromoCode(e.target.value)}
-              disabled={isPromoApplied}
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
-            />
-            <button
-              onClick={applyPromo}
-              disabled={isPromoApplied}
-              className={`px-4 py-2 ${
-                isPromoApplied ? 'bg-gray-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'
-              } text-white rounded-md transition`}
-            >
-              {isPromoApplied ? 'Applied' : 'Apply'}
-            </button>
-          </div>
+          <div className="flex flex-col sm:flex-row gap-2">
+        <input
+          type="text"
+          placeholder="Promo code"
+          value={promoCode}
+          onChange={(e) => setPromoCode(e.target.value)}
+          disabled={isPromoApplied}
+          className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+        />
+        <button
+          onClick={applyPromo}
+          disabled={isPromoApplied}
+          className={`px-4 py-2 text-sm ${
+            isPromoApplied ? 'bg-gray-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'
+          } text-white rounded-md transition`}
+        >
+          {isPromoApplied ? 'Applied' : 'Apply'}
+        </button>
+      </div>
 
           <div className="flex justify-between text-sm text-gray-600">
             <span>Subtotal:</span>
