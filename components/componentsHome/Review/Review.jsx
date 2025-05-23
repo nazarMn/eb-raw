@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from 'react';
-import './Review.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { Swiper, SwiperSlide } from 'swiper/react';

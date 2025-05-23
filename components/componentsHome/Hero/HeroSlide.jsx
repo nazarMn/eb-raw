@@ -1,6 +1,5 @@
 import React from 'react';
 import Image from 'next/image';
-import './Hero.css';
 
 export default function HeroSlide({ title, subtitle, description, imageSrc }) {
   return (
