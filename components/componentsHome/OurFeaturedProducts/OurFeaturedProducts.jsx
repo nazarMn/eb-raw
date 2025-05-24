@@ -74,7 +74,6 @@ export default function OurFeaturedProducts() {
 
   const categories = ["All", "Hoodie", "Accessories", "Mens", "Womens", "Trendy", "T-shirt"];
 
-  // Генерація кнопок з "..." логікою
   const generatePagination = () => {
     const pages = [];
     if (totalPages <= 7) {
