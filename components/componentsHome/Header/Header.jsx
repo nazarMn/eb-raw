@@ -18,7 +18,7 @@ export default function Header() {
 
   const handleSearch = async (term) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/products?name=${term}`);
+      const response = await fetch(`https://eb-raw-server.onrender.com/api/products?name=${term}`);
       const data = await response.json();
       setProducts(data); 
       setNumberProduct(`Found ${data.length} Products`);
@@ -76,7 +76,7 @@ export default function Header() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/products');
+        const response = await fetch('https://eb-raw-server.onrender.com/api/products');
         const data = await response.json();
         setNumberProduct(`Search in ${data.length} Products...`);
       } catch (error) {

@@ -18,7 +18,7 @@ export default function Review() {
   useEffect(() => {
     async function fetchReviews() {
       try {
-        const res = await fetch('http://localhost:5000/api/reviews');
+        const res = await fetch('https://eb-raw-server.onrender.com/api/reviews');
         const data = await res.json();
         setReviews(data);
       } catch (error) {
